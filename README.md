@@ -2,17 +2,26 @@
 
 ## users テーブル
 
-| Column     | Type   | Options     |
-| ---------- | ------ | ----------- |
-| email      | string | null: false |
-| password   | string | null: false |
-| name       | string | null: false |
-| date       | date   | null: false |
+| Column           | Type   | Options     |
+| ----------       | ------ | ----------- |
+| email            | string | null: false |
+| password         | string | null: false |
+| nickname         | string | null: false |
+| family_name      | string | null: false |
+| fast_name        | date   | null: false |
+| family_name_kana | string | null: false |
+| fast_name_kana   | string | null: false |
+
+## users active_hash
+| year  | integer   | null: false |
+| month | integer   | null: false |
+| date  | integer   | null: false |
 
 ### Association
 
 - has_many :items
 - has_many :purchases
+
 
 ## items テーブル
 
@@ -20,26 +29,28 @@
 | ----------    | ---------- | ----------------------------   |
 | name          | string     | null: false                    |
 | text          | text       | null: false                    |
-| category      | string     | null: false                    |
-| status        | string     | null: false,                   |
-| item-fee      | integer    | null: false,                   |
-| delivery-fee  | integer    | null: false,                   |
-| delivery-date | integer    | null: false,                   |
-| prefectures   | string     | null: false,                   |
-| user_id       | references | null: false, foreign_key: true |
+| fee           | integer    | null: false,                   |
+| user          | references | null: false, foreign_key: true |
 
+## items active_hash
+| category_id      | integer     | null: false                    |
+| status_id        | integer     | null: false,                   |
+| delivery_fee_id  | integer     | null: false,                   |
+| delivery_date_id | integer     | null: false,                   |
+| prefectures_id   | integer     | null: false,                   |
 
 ### Association
 
 - belongs_to :user
 - has_one    :purchase
 
+
 ## purchases テーブル
 
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
-| user_id  | references | null: false,foreign_key: true  |
-| item_id  | references | null: false,foreign_key: true  |
+| user     | references | null: false,foreign_key: true  |
+| item     | references | null: false,foreign_key: true  |
 
 ### Association
 
@@ -52,13 +63,15 @@
 
 | Column      | Type       | Options                        |
 | --------    | ---------- | ------------------------------ |
-| postal_code | integer    | null: false                    |
-| prefecture  | string     | null: false                    |
+| postal_code | string     | null: false                    |
 | city        | string     | null: false                    |
 | number      | string     | null: false                    |
 | building    | string     |                                |
-| phone_number| integer    | null: false                    |
-| purchase_id | references | null: false, foreign_key: true |
+| phone_number| string     | null: false                    |
+| purchase    | references | null: false, foreign_key: true |
+
+## addresses active_hash
+| prefecture_id | integer  | null: false                    |
 
 ### Association
 
