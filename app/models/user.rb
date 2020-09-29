@@ -3,4 +3,17 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  with_options presence: true do
+    validates :nickname
+    with_options format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid."} do
+      validates :family_name
+      validates :fast_name
+    end
+    with_options format: { with: /\A[ァ-ン]/, message: "is invalid."} do
+      validates :family_kana
+      validates :fast_kana
+    end
+    validates :date
+  end
+
 end
