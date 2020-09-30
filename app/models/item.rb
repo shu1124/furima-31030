@@ -13,7 +13,7 @@ class Item < ApplicationRecord
     validates :image
   end
 
-  with_options numericality: {other_than: 0} do
+  with_options numericality: {other_than: 0, message: 'is invalid.'} do
     validates :category_id
     validates :delivery_date_id
     validates :delivery_fee_id

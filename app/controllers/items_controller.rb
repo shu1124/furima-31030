@@ -17,9 +17,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def calc
-    
-  end
 
   private
     def items_params
