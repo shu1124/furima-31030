@@ -17,6 +17,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def calc
+    
+  end
+
   private
     def items_params
       params.require(:item).permit(:name,:text,:fee,:user,:category_id,:status_id,
