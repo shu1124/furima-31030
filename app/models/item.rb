@@ -1,20 +1,23 @@
 class Item < ApplicationRecord
-  extend ActiveHash::Assocations::ActiveRecordExtensions
-  belongs_to_active_hash :category, :delivery_date, :delivery_fee, :prefecture, :status
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :category 
+  belongs_to_active_hash :delivery_date 
+  belongs_to_active_hash :delivery_fee 
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :status
 
-  with_options presence: ture do
+  with_options presence: true do
     validates :name, length: { maximum: 40}
-    validates :text, { maximum: 1000}
-    validates :fee, format: {with: /\A[a-zA-Z0-9]+\z/ },
-                    length: {minimum: 300, maximum: 9999999}
+    validates :text, length: { maximum: 1000}
+    validates :fee, numericality:{ only_integer: true,greater_than: 300, less_than: 9999999}
     validates :image
   end
 
-  with_options numericality: {other_than: 1} do
+  with_options numericality: {other_than: 0} do
     validates :category_id
     validates :delivery_date_id
     validates :delivery_fee_id
-    validates :prefecture_id
+    validates :prefectures_id
     validates :status_id
   end
 
