@@ -3,9 +3,11 @@ class Item < ApplicationRecord
   belongs_to_active_hash :category, :delivery_date, :delivery_fee, :prefecture, :status
 
   with_options presence: ture do
-    validates :name
-    validates :text
-    validates :fee
+    validates :name, length: { maximum: 40}
+    validates :text, { maximum: 1000}
+    validates :fee, format: {with: /\A[a-zA-Z0-9]+\z/ },
+                    length: {minimum: 300, maximum: 9999999}
+    validates :image
   end
 
   with_options numericality: {other_than: 1} do
