@@ -28,8 +28,18 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include('Category is invalid.')
     end
+    it 'カテゴリー情報で０を選択した場合はエラー' do
+      @item.category_id = 0
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Category is invalid.')
+    end
     it '商品状態についての情報がない場合はエラー' do
       @item.status_id = ''
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Status is invalid.')
+    end
+    it '商品状態についての情報で0を選択した場合はエラー' do
+      @item.status_id = 0
       @item.valid?
       expect(@item.errors.full_messages).to include('Status is invalid.')
     end
@@ -38,13 +48,28 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include('Delivery fee is invalid.')
     end
+    it '配送料負担の情報で0を選択した場合はエラー' do
+      @item.delivery_fee_id = 0
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Delivery fee is invalid.')
+    end
     it '発送元地域の情報がない場合はエラー' do
       @item.prefectures_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include('Prefectures is invalid.')
     end
+    it '発送元地域の情報で0を選択した場合はエラー' do
+      @item.prefectures_id = 0
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Prefectures is invalid.')
+    end
     it '発送までの日数の情報がない場合はエラー' do
       @item.delivery_date_id = ''
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Delivery date is invalid.')
+    end
+    it '発送までの日数の情報で0を選択した場合はエラー' do
+      @item.delivery_date_id = 0
       @item.valid?
       expect(@item.errors.full_messages).to include('Delivery date is invalid.')
     end
