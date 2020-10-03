@@ -19,34 +19,30 @@ class PurchasesController < ApplicationController
     end
   end
 
+  private
 
-  private 
-   def purchase_params
-    params.require(:purchase_address).permit(:postal_code, :city, :number,:building,:phone_number,:prefectures_id).merge(token: params[:token],user_id: current_user.id, item_id: params[:item_id])
-   end 
+  def purchase_params
+    params.require(:purchase_address).permit(:postal_code, :city, :number, :building, :phone_number, :prefectures_id).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
+  end
 
-   def set_item
+  def set_item
     @item = Item.find(params[:item_id])
-   end
+  end
 
-   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+  def pay_item
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: Item.find(params[:item_id]).fee,
       card: purchase_params[:token],
       currency: 'jpy'
     )
-   end
+  end
 
-   def move_to_index
-      if user_signed_in? && current_user.id == Item.find(params[:item_id]).user.id
-        redirect_to root_path
-      end
-   end
+  def move_to_index
+    redirect_to root_path if user_signed_in? && current_user.id == Item.find(params[:item_id]).user.id
+  end
 
-   def sold_out
-      if Purchase.exists?(item_id: params[:item_id])
-        redirect_to root_path
-      end
-   end
+  def sold_out
+    redirect_to root_path if Purchase.exists?(item_id: params[:item_id])
+  end
 end
