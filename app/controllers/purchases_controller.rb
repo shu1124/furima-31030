@@ -39,7 +39,7 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if user_signed_in? && current_user.id == Item.find(params[:item_id]).user.id
+    redirect_to root_path if user_signed_in? && current_user.id == Item.find(params[:item_id]).user.id 
   end
 
   def sold_out

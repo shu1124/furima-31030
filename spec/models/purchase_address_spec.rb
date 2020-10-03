@@ -59,7 +59,7 @@ RSpec.describe PurchaseAddress, type: :model do
       expect(@purchase_address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
     end
     it '電話番号にハイフンがある場合は保存できない' do
-      @purchase_address.phone_number = 123 - 456 - 789
+      @purchase_address.phone_number = "#{123}-#{456}-#{789}"
       @purchase_address.valid?
       expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
     end
